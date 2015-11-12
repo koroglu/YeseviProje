@@ -1,0 +1,1 @@
+mvn install:install-file -Dfile=D:\Oracle\Middleware\Oracle_Home\oracle_common\modules\oracle.jdbc_12.1.0\ojdbc6.jar -Dpackaging=jar  -DgroupId=com.oracle.weblogic -DartifactId=wlclient -Dversion=12.1.0
