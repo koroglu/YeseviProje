@@ -31,7 +31,7 @@ import org.springframework.web.bind.annotation.RestController;
 import dao.BaseDAO;
 
 @RestController
-public class SoaController  {
+public class DenemeController  {
 
 	@Autowired
 	private BaseDAO baseDAO;
