@@ -99,6 +99,15 @@ public class DenemeController  {
 		return m;
 	}
 
+	@RequestMapping("/hsql")
+	public List<Map<String, Object>> hsql(HttpServletResponse resp) throws IOException {
+		List<Map<String, Object>> list = new ArrayList<>();
+		list = baseDAO.getJdbcTemplate().queryForList("select * from PRODUCT");
+		
+		return list;
+	}
+	
+	
 //	private final ErrorAttributes errorAttributes;
 //
 //	@Override
