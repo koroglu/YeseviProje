@@ -19,15 +19,21 @@ import javax.servlet.http.HttpServletResponse;
 import javax.sql.DataSource;
 
 import model.Composite;
+import model.Nodes;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.web.ErrorAttributes;
 import org.springframework.boot.autoconfigure.web.ErrorController;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.util.Assert;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import security.SessionClientData;
 import dao.BaseDAO;
 
 @RestController
@@ -35,7 +41,11 @@ public class DenemeController  {
 
 	@Autowired
 	private BaseDAO baseDAO;
+	
+	@Autowired
+	private SessionClientData scd;
 
+	
 	@RequestMapping("/soa")
 	public Map<String, Object> hi(HttpServletResponse resp) throws IOException {
 		Map m = new HashMap();
@@ -108,17 +118,32 @@ public class DenemeController  {
 	}
 	
 	
-//	private final ErrorAttributes errorAttributes;
-//
-//	@Override
-//	public String getErrorPath() {
-//		return "/error";
-//	}
-//
-//	@Autowired
-//	public SoaController(ErrorAttributes errorAttributes) {
-//		Assert.notNull(errorAttributes, "ErrorAttributes must not be null");
-//		this.errorAttributes = errorAttributes;
-//	}
+	@RequestMapping(method={RequestMethod.POST,RequestMethod.GET},value="/tree")
+	public List<Nodes> tree( ) throws IOException {
+		List<Map<String, Object>> list = new ArrayList<>();
+		Nodes n = new Nodes();
+		n.buildNodes();
+		
+		return n.getNodes();
+	}
+	
+	
+
+	
+	@RequestMapping(value="/scd")
+	public String getSessionClientId() throws IOException {
+		return scd.toString();
+	}
+	
+	
+	
+	
+	@RequestMapping(value="/soa/{id}")
+	public Map<String,Object> testSOA(@PathVariable Integer id) throws IOException {
+		Map<String,Object> m = new HashMap();
+		m.put("Selam","Geyik");
+		m.put("koordinat", id);
+		return m;
+	}
 
 }
