@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Selamlar İlk Örnek...</title>
+</head>
+<body>
+	<link rel="stylesheet" type="text/css" href="./extjs/resources/css/ext-all.css" />
+	<script type="text/javascript" src="./extjs/adapter/ext/ext-base.js"></script>
+	<script type="text/javascript" src="./extjs/ext-all.js"></script>
+	
+<script>
+	var x = Ext.onReady(function() {
+		Ext.ns('Staj');
+
+		Ext.BLANK_IMAGE_URL = './extjs/resources/images/default/s.gif';
+		Ext.QuickTips.init();
+		
+		
+		
+		var menuRoot = new Ext.tree.AsyncTreeNode({
+	        text: 'Staj Takip Sistemi',
+	        draggable:false,
+	        expanded:true,
+	        id:'root'
+	    });   
+		var tree = new Ext.tree.TreePanel({
+			id:'kumeTree',
+			width:200,
+			useArrows:true,
+			border:false,
+			autoScroll:true,  
+			animate:true,
+			containerScroll: true,
+			root: menuRoot,  	
+			loader: new Ext.tree.TreeLoader({dataUrl:'./tree',requestMethod:'GET'}),
+			listeners: {
+				'click':function(node) {
+					console.log(node);
+				}
+			}
+		});
+	 
+
+
+		new Ext.Viewport({
+		    layout: 'border',
+		    items: [{
+		        region: 'north',
+		        height: 70,
+		        border: false,
+		        margins: '0 0 5 0'
+		    }, {
+		        region: 'west',
+		        collapsible: false,
+		        title: 'Navigation',
+		        width: 200,
+		        items:[tree]
+		        
+		        // the west region might typically utilize a TreePanel or a Panel with Accordion layout
+		    }, {
+		        region: 'east',
+		        title: 'Title for the Grid Panel',
+		        collapsible: true,
+		        split: true,
+		        width: 200,
+		        xtype: 'grid',
+		    }, {
+		        region: 'center',
+		        xtype: 'tabpanel', // TabPanel itself has no title
+		        items: {
+		            title: 'Default Tab',
+		            html: 'The first tab\'s content. Others may be added dynamically'
+		        }
+		    }]
+		});
+	
+		
+		
+	});
+
+</script>
+</body>
+</html>
