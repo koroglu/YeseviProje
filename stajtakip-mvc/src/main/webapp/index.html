@@ -8,77 +8,90 @@
 	<link rel="stylesheet" type="text/css" href="./extjs/resources/css/ext-all.css" />
 	<script type="text/javascript" src="./extjs/adapter/ext/ext-base.js"></script>
 	<script type="text/javascript" src="./extjs/ext-all.js"></script>
-	
-<script>
-	var x = Ext.onReady(function() {
-		Ext.ns('Staj');
+	<script type="text/javascript" src="./js/TabCloseMenu.js"></script>
+	<script type="text/javascript" src="./js/Framework.js"></script>
 
-		Ext.BLANK_IMAGE_URL = './extjs/resources/images/default/s.gif';
-		Ext.QuickTips.init();
-		
-		
-		
-		var menuRoot = new Ext.tree.AsyncTreeNode({
-	        text: 'Staj Takip Sistemi',
-	        draggable:false,
-	        expanded:true,
-	        id:'root'
-	    });   
-		var tree = new Ext.tree.TreePanel({
-			id:'kumeTree',
-			width:200,
-			useArrows:true,
-			border:false,
-			autoScroll:true,  
-			animate:true,
-			containerScroll: true,
-			root: menuRoot,  	
-			loader: new Ext.tree.TreeLoader({dataUrl:'./tree',requestMethod:'GET'}),
-			listeners: {
-				'click':function(node) {
-					console.log(node);
+	<script>
+		var x = Ext.onReady(function() {
+			Ext.ns('Staj');
+
+			Ext.BLANK_IMAGE_URL = './extjs/resources/images/default/s.gif';
+			Ext.QuickTips.init();
+
+			var menuRoot = new Ext.tree.AsyncTreeNode({
+				text : 'Staj Takip Sistemi',
+				draggable : false,
+				expanded : true,
+				id : '0'
+			});
+			
+			var tree = new Ext.tree.TreePanel({
+				id : 'kumeTree',
+				width : 200,
+				useArrows : true,
+				border : false,
+				autoScroll : true,
+				animate : true,
+				containerScroll : true,
+				root : menuRoot,
+				loader : new Ext.tree.TreeLoader({
+					dataUrl : './tree',
+					requestMethod : 'GET',
+					baseParams :{method:'getJSON',parentId:0},
+					listeners: {
+						'beforeload':function(treeLoader,node) {
+							console.log(node.attributes);
+							this.baseParams.parentId =node.attributes.id||0;
+						}
+					}
+				}),
+				listeners : {
+					'click' : function(node) {
+						if(node.attributes.leaf) {
+							loadScript(node.attributes.componentName);	
+						}
+					}
 				}
-			}
+			});
+
+			var tabs = new Ext.TabPanel({
+				id:'tabs',
+				frame:true,
+				resizeTabs : true, // turn on tab resizing
+				enableTabScroll : true,
+				defaults : {
+					autoScroll : true
+				},
+				plugins : new Ext.ux.TabCloseMenu()
+			});
+		    // tab generation code
+		   
+		    tabs.add({id:'AnaMenu',title:'Merhaba!',html:'<h3>Hoş geldiniz</h3>'});
+		    Ext.getCmp('tabs').setActiveTab('AnaMenu');
+			new Ext.Viewport({
+				layout : 'border',
+				items : [ {
+					region : 'north',
+					height : 70,
+					border : false,
+					margins : '0 0 5 0'
+				}, {
+					region : 'west',
+					collapsible : false,
+					title : 'Navigation',
+					width : 200,
+					items : [ tree ]
+
+				// the west region might typically utilize a TreePanel or a Panel with Accordion layout
+				}, {
+					region : 'center',
+					id : 'tabpanel',
+					frame:true,
+					items : [ tabs ]
+				} ]
+			});
+
 		});
-	 
-
-
-		new Ext.Viewport({
-		    layout: 'border',
-		    items: [{
-		        region: 'north',
-		        height: 70,
-		        border: false,
-		        margins: '0 0 5 0'
-		    }, {
-		        region: 'west',
-		        collapsible: false,
-		        title: 'Navigation',
-		        width: 200,
-		        items:[tree]
-		        
-		        // the west region might typically utilize a TreePanel or a Panel with Accordion layout
-		    }, {
-		        region: 'east',
-		        title: 'Title for the Grid Panel',
-		        collapsible: true,
-		        split: true,
-		        width: 200,
-		        xtype: 'grid',
-		    }, {
-		        region: 'center',
-		        xtype: 'tabpanel', // TabPanel itself has no title
-		        items: {
-		            title: 'Default Tab',
-		            html: 'The first tab\'s content. Others may be added dynamically'
-		        }
-		    }]
-		});
-	
-		
-		
-	});
-
-</script>
+	</script>
 </body>
 </html>

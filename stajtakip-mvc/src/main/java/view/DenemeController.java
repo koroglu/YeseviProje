@@ -119,14 +119,11 @@ public class DenemeController  {
 	
 	
 	@RequestMapping(method={RequestMethod.POST,RequestMethod.GET},value="/tree")
-	public List<Nodes> tree( ) throws IOException {
-		List<Map<String, Object>> list = new ArrayList<>();
-		Nodes n = new Nodes();
-		n.buildNodes();
-		
-		return n.getNodes();
+	public List tree(@RequestParam String parentId ) throws IOException {
+		System.out.println("Budayiz.............");
+		return baseDAO.getJdbcTemplate().queryForList("select PARENT_ID as \"parentId\", ID as \"id\", TEXT as \"text\", "
+				+ "CLS as \"cls\", LEAF as  \"leaf\", COMPONENT_NAME as \"componentName\" from nodes where parent_id=?",parentId);
 	}
-	
 	
 
 	
