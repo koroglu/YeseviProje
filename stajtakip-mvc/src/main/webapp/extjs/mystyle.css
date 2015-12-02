@@ -1,3 +1,8 @@
+.icon-save {
+ 	background-repeat: no-repeat; 
+	background-image: url("../images/download.ico");
+}
+
 .topDiv { 
 	border-width: 0;
 	transition: all 1s ease; 
