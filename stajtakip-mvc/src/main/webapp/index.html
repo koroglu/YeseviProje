@@ -6,11 +6,11 @@
 </head>
 <body>
 	<link rel="stylesheet" type="text/css" href="./extjs/resources/css/ext-all.css" />
+	<link rel="stylesheet" type="text/css" href="./extjs/mystyle.css"/>
 	<script type="text/javascript" src="./extjs/adapter/ext/ext-base.js"></script>
 	<script type="text/javascript" src="./extjs/ext-all.js"></script>
 	<script type="text/javascript" src="./js/TabCloseMenu.js"></script>
 	<script type="text/javascript" src="./js/Framework.js"></script>
-
 	<script>
 		var x = Ext.onReady(function() {
 			Ext.ns('Staj');
@@ -59,6 +59,11 @@
 				frame:true,
 				resizeTabs : true, // turn on tab resizing
 				enableTabScroll : true,
+			    resizeTabs: true,
+	            defaults: {
+	                layout: 'fit',
+	                autoScroll: true
+	            },
 				defaults : {
 					autoScroll : true
 				},
@@ -66,15 +71,26 @@
 			});
 		    // tab generation code
 		   
-		    tabs.add({id:'AnaMenu',title:'Merhaba!',html:'<h3>Hoş geldiniz</h3>'});
+		    var imgSource = "http://enrollment.rochester.edu/blog/wp-content/uploads/2015/04/intern_illustration.png";
+		    tabs.add({
+		    		id:'AnaMenu',
+		    		title:'Staj Takip Sistemi',
+		    		script:true,
+		    		html:'<h2>Hoş geldiniz</h2><li><img src="http://enrollment.rochester.edu/blog/wp-content/uploads/2015/04/intern_illustration.png"/></li>'
+		    	});
 		    Ext.getCmp('tabs').setActiveTab('AnaMenu');
+		    
 			new Ext.Viewport({
 				layout : 'border',
 				items : [ {
 					region : 'north',
-					height : 70,
+					height : 40,
 					border : false,
-					margins : '0 0 5 0'
+					margins : '0 0 5 0',
+					items:[{
+						html:'<img class="logoimg"  src="./images/logo.jpg" width="30" height="30"/><div class="topDiv"><div><font color="white">Staj Takip Sistemi</font></div></div>',
+						script:true
+					}]
 				}, {
 					region : 'west',
 					collapsible : false,

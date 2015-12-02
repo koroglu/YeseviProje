@@ -125,6 +125,7 @@ public class DenemeController  {
 				+ "CLS as \"cls\", LEAF as  \"leaf\", COMPONENT_NAME as \"componentName\" from nodes where parent_id=?",parentId);
 	}
 	
+	
 
 	
 	@RequestMapping(value="/scd")

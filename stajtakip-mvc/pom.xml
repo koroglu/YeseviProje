@@ -9,7 +9,8 @@
 
 	<properties>
 		<hsqldb.version>2.3.2</hsqldb.version>
-		<java.version>1.7</java.version>
+		<java.version>1.8</java.version>
+		<start-class>view.Application</start-class>
 	</properties>
 
 	<parent>
@@ -40,14 +41,7 @@
 			<artifactId>hsqldb</artifactId>
 			<version>2.3.2</version>
 		</dependency>
-
-
-
-
 	</dependencies>
-
-
-
 
 	<build>
 		<plugins>
